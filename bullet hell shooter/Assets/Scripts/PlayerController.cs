@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class Plane : MonoBehaviour
 {
-    public float speed = 20;
-    public float turnSpeed = 45;
+    public float speed = 40;
+    public float turnSpeed = 90;
     public float horizontalInput;
     public float forwardInput;
-    public KeyCode switchKey; //Tecla que permite cambiar entre cámaras
-    //Variables multijugador
     public string inputId;
-    // Start is called before the first frame update
+
+    public GameObject bulletPrefab;
+    public Transform spawnPoint;
+    public float bulletSpeed = 50f;
+
+    public float limitX = 50f;  
+    public float limitZ = 100f;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    void shoot()
+    {
+        // Instancia la bala en el spawn point y la dispara hacia adelante
+        GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        bulletRb.velocity = spawnPoint.forward * bulletSpeed;
+    }
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal" + inputId);
@@ -26,6 +36,17 @@ public class Plane : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
 
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            shoot();
+        }
+
+        Vector3 pos = transform.position;
+
+        pos.x = Mathf.Clamp(pos.x, -limitX, limitX);
+
+        pos.z = Mathf.Clamp(pos.z, -limitZ, limitZ);
+
+        transform.position = pos;
     }
 }
