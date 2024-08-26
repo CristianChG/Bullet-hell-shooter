@@ -11,7 +11,7 @@ public class BulletCounter : MonoBehaviour
     void Update()
     {
         // Cuenta cuántos objetos con el tag "Bullet" hay en la escena
-        int bulletCount = GameObject.FindGameObjectsWithTag("Bullet").Length;
+        int bulletCount = GameObject.FindGameObjectsWithTag("Bullet").Length + GameObject.FindGameObjectsWithTag("BulletBoss").Length;
 
         // Actualiza el texto del UI con el número de balas
         bulletCountText.text = "Bullets: " + bulletCount.ToString();

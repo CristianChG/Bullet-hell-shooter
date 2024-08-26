@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullets : MonoBehaviour
+public class BulletsBoss : MonoBehaviour
 {
     public int damage = 10;
     public float limitX = 50f;
@@ -14,18 +14,6 @@ public class Bullets : MonoBehaviour
             transform.position.z < -limitZ || transform.position.z > limitZ)
         {
             Destroy(gameObject);
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        HelicopterController helicopter = collision.gameObject.GetComponent<HelicopterController>();
-
-        if (helicopter != null)
-        {
-            helicopter.TakeDamage(damage);
-            Destroy(gameObject); 
-            
         }
     }
 }

@@ -6,7 +6,10 @@ public class MapBoundary : MonoBehaviour
 {
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Bullet") || other.CompareTag("Player") || other.CompareTag("Boss"))
+        if (other.CompareTag("Bullet") || other.CompareTag("Player") || other.CompareTag("Boss") || other.CompareTag("BulletBoss"))
+        {
+            Destroy(other.gameObject);
+        }
         {
             if (other.CompareTag("Bullet"))
             {
